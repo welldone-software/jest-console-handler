@@ -1,5 +1,5 @@
 {
-  "name": "jest-console-handler",
+  "name": "@welldone-software/jest-console-handler",
   "version": "0.0.2",
   "description": "Fails on console output unless marked as desired.",
   "main": "index.js",
