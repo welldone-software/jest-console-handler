@@ -1,0 +1,5 @@
+{
+  "rootDir": ".",
+  "cacheDirectory": ".cache/jest-cache",
+  "setupFilesAfterEnv": ["<rootDir>/jestSetup.js"]
+}
