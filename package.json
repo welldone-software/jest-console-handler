@@ -13,7 +13,8 @@
     "testPathIgnorePatterns": ["tests"]
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "yanr test"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
