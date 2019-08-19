@@ -1,11 +1,11 @@
-export class UnexpectedConsoleOutputError extends Error{
+class UnexpectedConsoleOutputError extends Error{
   constructor(message, consoleMessages){
     super(`${message}: ${JSON.stringify(consoleMessages, null, 2)}`)
     this.consoleMessages = consoleMessages
   }
 }
 
-export const defaultConfig = {
+const defaultConfig = {
   onError: ({consoleMessages}) => {
     if(consoleMessages.length > 0){
       throw new UnexpectedConsoleOutputError('Unhandled console messages in test', consoleMessages)
@@ -13,7 +13,7 @@ export const defaultConfig = {
   }
 }
 
-export default function errorOnConsoleOutput(
+function errorOnConsoleOutput(
   {
     onError = defaultConfig.onError
   } = {}
@@ -43,4 +43,10 @@ export default function errorOnConsoleOutput(
   }
 
   return flushConsoleMessages
+}
+
+module.exports = {
+  UnexpectedConsoleOutputError,
+  defaultConfig,
+  errorOnConsoleOutput
 }
