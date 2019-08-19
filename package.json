@@ -1,20 +1,24 @@
 {
   "name": "jest-console-handler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fails on console output unless marked as desired.",
   "main": "index.js",
-  "files": ["index.js"],
+  "files": [
+    "index.js"
+  ],
   "repository": "https://github.com/welldone-software/jest-console-handler",
   "author": "vzaidman <vzaidman@gmail.com>",
   "license": "MIT",
   "private": false,
   "jest": {
     "cacheDirectory": ".cache/jest-cache",
-    "testPathIgnorePatterns": ["tests"]
+    "testPathIgnorePatterns": [
+      "tests"
+    ]
   },
   "scripts": {
     "test": "jest",
-    "prepublish": "yanr test"
+    "prepublish": "yarn test"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
