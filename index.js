@@ -19,6 +19,11 @@ function errorOnConsoleOutput(
   } = {}
 ){
   let consoleMessages = []
+  const flushConsoleMessages = () => {
+    const consoleMessagesToTake = consoleMessages
+    consoleMessages = []
+    return consoleMessagesToTake
+  }
 
   beforeEach(() => {
     Object.keys(global.console)
@@ -33,14 +38,9 @@ function errorOnConsoleOutput(
   })
 
   afterEach(() => {
-    onError({consoleMessages})
+    const flushedConsoleMessages = flushConsoleMessages();
+    onError({consoleMessages: flushedConsoleMessages})
   })
-
-  const flushConsoleMessages = () => {
-    const consoleMessagesToTake = consoleMessages
-    consoleMessages = []
-    return consoleMessagesToTake
-  }
 
   return flushConsoleMessages
 }
