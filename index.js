@@ -10,12 +10,14 @@ const defaultConfig = {
     if(consoleMessages.length > 0){
       throw new UnexpectedConsoleOutputError('Unhandled console messages in test', consoleMessages)
     }
-  }
+  },
+  filterEntries: consoleEntry => consoleEntry,
 }
 
 function errorOnConsoleOutput(
   {
-    onError = defaultConfig.onError
+    onError = defaultConfig.onError,
+    filterEntries = defaultConfig.filterEntries,
   } = {}
 ){
   let consoleMessages = []
@@ -32,7 +34,10 @@ function errorOnConsoleOutput(
       })
       .forEach(consoleFnName => {
         global.console[consoleFnName] = (...args) => {
-          consoleMessages.push({level: consoleFnName, args})
+          const consoleEntry = {level: consoleFnName, args};
+          if (filterEntries(consoleEntry)) {
+            consoleMessages.push(consoleEntry)
+          }
         }
       })
   })

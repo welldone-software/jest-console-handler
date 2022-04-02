@@ -27,25 +27,35 @@ function exec(command, {
 test('no console', async () => {
   await exec(
     'rimraf results.json',
-    {commandOptions: {cwd: './tests'}}
+    {commandOptions: {cwd: './inner-tests'}}
   )
 
   await exec(
     'npx jest --config=./jest.config.json --json --outputFile=./results.json --bail=0',
-    {commandOptions: {cwd: './tests'}, ignoreErrors: true}
+    {commandOptions: {cwd: './inner-tests'}, ignoreErrors: true}
   )
 
-  const results = JSON.parse(fs.readFileSync('tests/results.json'))
+  const results = JSON.parse(fs.readFileSync('inner-tests/results.json'))
 
   expect(results.testResults[0].assertionResults).toEqual([
     expect.objectContaining({
+      "fullName": "no console usage - should pass",
       "status": "passed"
     }),
     expect.objectContaining({
+      "fullName": "console info - should pass",
+      "status": "passed"
+    }),
+    expect.objectContaining({
+      "fullName": "simple unhandled console log - should fail",
       "status": "failed",
       "failureMessages": [
         expect.stringContaining("Unhandled console messages")
       ]
+    }),
+    expect.objectContaining({
+      "fullName": "simple handled console log - should pass",
+      "status": "passed"
     }),
   ])
 })
